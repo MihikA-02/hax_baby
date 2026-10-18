@@ -7,6 +7,7 @@ import meadow from "@/assets/meadow.jpg";
 import zoobi from "@/assets/zoobi.png";
 import heroVideo from "@/assets/hero_page.mp4";
 import Zoobi from "@/Zoobi";
+import SparkleCursor from "@/SparkleCursor";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -119,12 +120,13 @@ function Index() {
           dark
             ? { background: "var(--parchment)", minHeight: "100vh" }
             : {
-                backgroundImage: `url(${parchment})`,
-                backgroundSize: "100% auto",
-                minHeight: "100vh",
-              }
+              backgroundImage: `url(${parchment})`,
+              backgroundSize: "100% auto",
+              minHeight: "100vh",
+            }
         }
       >
+        <SparkleCursor />
         {/* Hero – full viewport, no scroll until siteUnlocked */}
         <div
           style={!siteUnlocked ? { height: "100vh", overflow: "hidden" } : {}}
@@ -137,8 +139,8 @@ function Index() {
         {siteUnlocked && (
           <>
             <main className="mx-auto max-w-6xl space-y-20 px-6 py-16">
-              <Origin />
               <Meet />
+              <Origin />
               <Projects />
               <Studio />
               <Gallery />
@@ -168,7 +170,7 @@ function Index() {
 function VideoOverlay({ videoSrc, onEnd, onSkip }) {
   const videoRef = useRef(null);
   useEffect(() => {
-    videoRef.current?.play().catch(() => {});
+    videoRef.current?.play().catch(() => { });
   }, []);
   return (
     <div

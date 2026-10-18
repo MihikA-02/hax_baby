@@ -1,0 +1,34 @@
+.zoobi-sparkle {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+    user-select: none;
+
+    color: var(--sparkle-color);
+    font-size: var(--sparkle-size);
+    line-height: 1;
+    text-shadow: 0 0 7px color-mix(in srgb, var(--sparkle-color), transparent 35%);
+
+    transform: translate(-50%, -50%);
+    animation: zoobi-star-float 750ms ease-out forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes zoobi-star-float {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    }
+
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.15) rotate(15deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(calc(-50% + var(--drift-x)),
+                calc(-50% + var(--drift-y))) scale(0.15) rotate(var(--spin));
+    }
+}
