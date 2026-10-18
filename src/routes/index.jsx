@@ -8,6 +8,7 @@ import zoobi from "@/assets/zoobi.png";
 import heroVideo from "@/assets/hero_page.mp4";
 import Zoobi from "@/Zoobi";
 import SparkleCursor from "@/SparkleCursor";
+import Storybook from "@/components/storybook/Storybook";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -323,27 +324,7 @@ function Origin() {
         t="Zoobi's Origin"
         s="From a drop of magic, a universe of colors was born..."
       />
-      <div className="grid gap-6 md:grid-cols-4">
-        {origin.map((o, i) => (
-          <article key={o.t} className="paper-card overflow-hidden p-2">
-            <img
-              src={o.img}
-              alt={o.t}
-              loading="lazy"
-              className={`h-32 w-full rounded-lg object-cover ${o.f}`}
-            />
-            <div className="p-3">
-              <h3 className="flex items-center gap-2 font-bold">
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-berry text-xs text-primary-foreground">
-                  {i + 1}
-                </span>
-                {o.t}
-              </h3>
-              <p className="text-sm opacity-80">{o.d}</p>
-            </div>
-          </article>
-        ))}
-      </div>
+      <Storybook />
     </section>
   );
 }
