@@ -31,7 +31,7 @@ export default defineConfig(({ command }) => ({
         generatedRouteTree: "src/routeTree.gen.js",
       },
     }),
-    command === "build" ? nitro({ preset: "cloudflare-module" }) : null,
+    command === "build" ? nitro() : null,
     viteReact(),
   ].filter(Boolean),
 }));
