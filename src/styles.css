@@ -295,6 +295,12 @@
   margin-right: auto;
 }
 
+/* -- Origin page: zero out the .zoobi-page padding so #Story is truly
+   full-bleed from viewport edge to edge. Content re-adds its own padding. */
+.zoobi-pages-scroll > .zoobi-origin-page {
+  padding: 0;
+}
+
 /* Avoid oversized title gaps inside full-screen pages */
 .zoobi-page .mb-8 {
   margin-bottom: clamp(0.5rem, 1.5vh, 1.25rem);
@@ -378,8 +384,8 @@
   color: var(--ink);
 }
 
-/* Centre Zoobi's Origin storybook */
-.zoobi-origin-page>#Story {
+/* Centre Zoobi's Origin storybook content (not the section itself) */
+.zoobi-origin-content {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
@@ -420,6 +426,12 @@
   .origin-book-stage {
     animation: none;
   }
+}
+
+/* Fade-in for the Origin background video */
+@keyframes origin-video-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ==========================================
@@ -932,5 +944,129 @@
 @media (prefers-reduced-motion: reduce) {
   .zoobi-secret-particle {
     animation-duration: 300ms;
+  }
+}
+
+/* =========================================
+   ZOOBI: PERSONALITY PAGE ENHANCEMENT
+   ========================================= */
+
+/* Personality stage container */
+.zoobi-personality-stage {
+  min-height: min(520px, 80vh);
+}
+
+.zoobi-personality-model .zoobi-container {
+  height: 500px;
+}
+
+@media (max-width: 640px) {
+  .zoobi-personality-model .zoobi-container {
+    height: 380px;
+  }
+}
+
+/* Floating Kawaii Trait Cards animations */
+@keyframes zoobi-float-soft-1 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes zoobi-float-soft-2 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes zoobi-float-soft-3 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.zoobi-card-float-1 {
+  animation: zoobi-float-soft-1 3.8s ease-in-out infinite;
+}
+.zoobi-card-float-2 {
+  animation: zoobi-float-soft-2 4.4s ease-in-out infinite;
+}
+.zoobi-card-float-3 {
+  animation: zoobi-float-soft-3 5.0s ease-in-out infinite;
+}
+
+/* Subtle magical bubbles background */
+.zoobi-magical-bubble {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 32% 28%,
+    rgba(255, 255, 255, 0.85) 0%,
+    var(--bubble-tint, rgba(255, 225, 240, 0.4)) 45%,
+    rgba(240, 230, 255, 0.25) 75%,
+    rgba(220, 240, 255, 0.15) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 14px var(--bubble-glow, rgba(240, 180, 220, 0.25)),
+    inset 0 0 10px rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(1px);
+  will-change: transform, opacity;
+  animation: zoobi-bubble-drift var(--bubble-dur, 9s) ease-in-out infinite alternate var(--bubble-delay, 0s);
+}
+
+@keyframes zoobi-bubble-drift {
+  0% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(-16px) translateX(8px) scale(1.06);
+    opacity: 0.7;
+  }
+}
+
+.zoobi-magical-star {
+  position: absolute;
+  pointer-events: none;
+  line-height: 1;
+  font-size: 1rem;
+  color: var(--star-color, #ffd580);
+  text-shadow: 0 0 6px rgba(255, 215, 128, 0.6);
+  will-change: transform, opacity;
+  animation: zoobi-star-twinkle var(--star-dur, 4s) ease-in-out infinite alternate var(--star-delay, 0s);
+}
+
+@keyframes zoobi-star-twinkle {
+  0% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.2) rotate(15deg);
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoobi-card-float-1,
+  .zoobi-card-float-2,
+  .zoobi-card-float-3,
+  .zoobi-magical-bubble,
+  .zoobi-magical-star {
+    animation: none !important;
   }
 }

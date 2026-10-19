@@ -6,6 +6,7 @@ import night from "@/assets/night.jpg";
 import meadow from "@/assets/meadow.jpg";
 import zoobi from "@/assets/zoobi.png";
 import heroVideo from "@/assets/hero_page.mp4";
+import originVideo from "@/assets/origin_page.mp4";
 import { Projects } from "@/features/projects/ProjectsSection";
 import Zoobi from "@/Zoobi";
 import SparkleCursor from "@/SparkleCursor";
@@ -125,13 +126,12 @@ function Index() {
             onClick={() => setIsChaosMode((prev) => !prev)}
             aria-pressed={isChaosMode}
             aria-label={isChaosMode ? "Restore normal layout" : "Activate Chaos Mode"}
-            className={`zoobi-chaos-toggle flex items-center gap-1.5 rounded-full px-3 py-1.5 sm:px-3.5 sm:py-2 font-display text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-berry backdrop-blur-md ${
-              isChaosMode
-                ? "bg-[#ff4e88]/90 text-white border-2 border-[#ffb3d1] shadow-[0_4px_16px_rgba(255,78,136,0.4)] animate-pulse"
-                : isNightMode
-                  ? "bg-[#1f1b40]/85 text-[#f0e8ff] border border-[#7f6bbb]/60 shadow-[0_4px_16px_rgba(10,5,28,0.5)] hover:bg-[#2d275e] hover:border-[#a08cee]"
-                  : "bg-[#fffaf3]/90 text-[#514582] border border-[#edc5d9] shadow-[0_4px_14px_rgba(220,76,155,0.18)] hover:bg-[#fffaf3] hover:border-[#dc4c9b]"
-            }`}
+            className={`zoobi-chaos-toggle flex items-center gap-1.5 rounded-full px-3 py-1.5 sm:px-3.5 sm:py-2 font-display text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-berry backdrop-blur-md ${isChaosMode
+              ? "bg-[#ff4e88]/90 text-white border-2 border-[#ffb3d1] shadow-[0_4px_16px_rgba(255,78,136,0.4)] animate-pulse"
+              : isNightMode
+                ? "bg-[#1f1b40]/85 text-[#f0e8ff] border border-[#7f6bbb]/60 shadow-[0_4px_16px_rgba(10,5,28,0.5)] hover:bg-[#2d275e] hover:border-[#a08cee]"
+                : "bg-[#fffaf3]/90 text-[#514582] border border-[#edc5d9] shadow-[0_4px_14px_rgba(220,76,155,0.18)] hover:bg-[#fffaf3] hover:border-[#dc4c9b]"
+              }`}
           >
             {isChaosMode ? (
               <>
@@ -152,11 +152,10 @@ function Index() {
             onClick={() => setIsNightMode((prev) => !prev)}
             aria-pressed={isNightMode}
             aria-label={isNightMode ? "Switch to Day mode" : "Switch to Night mode"}
-            className={`zoobi-theme-toggle flex items-center gap-1.5 rounded-full px-3 py-1.5 sm:px-3.5 sm:py-2 font-display text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-berry backdrop-blur-md ${
-              isNightMode
-                ? "bg-[#181636]/85 text-[#f0e8ff] border border-[#7f6bbb]/60 shadow-[0_4px_16px_rgba(10,5,28,0.5)] hover:bg-[#241f4d] hover:border-[#a08cee]"
-                : "bg-[#fffaf3]/90 text-[#514582] border border-[#edc5d9] shadow-[0_4px_14px_rgba(220,76,155,0.18)] hover:bg-[#fffaf3] hover:border-[#dc4c9b]"
-            }`}
+            className={`zoobi-theme-toggle flex items-center gap-1.5 rounded-full px-3 py-1.5 sm:px-3.5 sm:py-2 font-display text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-berry backdrop-blur-md ${isNightMode
+              ? "bg-[#181636]/85 text-[#f0e8ff] border border-[#7f6bbb]/60 shadow-[0_4px_16px_rgba(10,5,28,0.5)] hover:bg-[#241f4d] hover:border-[#a08cee]"
+              : "bg-[#fffaf3]/90 text-[#514582] border border-[#edc5d9] shadow-[0_4px_14px_rgba(220,76,155,0.18)] hover:bg-[#fffaf3] hover:border-[#dc4c9b]"
+              }`}
           >
             {isNightMode ? (
               <>
@@ -180,27 +179,27 @@ function Index() {
             ? dark
               ? { background: "var(--parchment)", minHeight: "100vh" }
               : {
+                backgroundImage: `url(${parchment})`,
+                backgroundSize: "100% auto",
+                minHeight: "100vh",
+              }
+            : isNightMode
+              ? {
+                backgroundImage: `url(${nightBg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed",
+                backgroundColor: "#070919",
+                minHeight: "100vh",
+              }
+              : dark
+                ? { background: "var(--parchment)", minHeight: "100vh" }
+                : {
                   backgroundImage: `url(${parchment})`,
                   backgroundSize: "100% auto",
                   minHeight: "100vh",
                 }
-            : isNightMode
-              ? {
-                  backgroundImage: `url(${nightBg})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundAttachment: "fixed",
-                  backgroundColor: "#070919",
-                  minHeight: "100vh",
-                }
-              : dark
-                ? { background: "var(--parchment)", minHeight: "100vh" }
-                : {
-                    backgroundImage: `url(${parchment})`,
-                    backgroundSize: "100% auto",
-                    minHeight: "100vh",
-                  }
         }
       >
         {/* Cursor effect: In Day mode SparkleCursor, in Night mode FlashlightOverlay */}
@@ -209,7 +208,7 @@ function Index() {
         {/* Show the book landing page only before the intro is dismissed */}
         {!siteUnlocked && (
           <div style={{ height: "100vh", overflow: "hidden" }}>
-            <Nav dark={dark} onToggle={() => setDark(!dark)} />
+
             <Hero onPlay={handlePlayClick} />
           </div>
         )}
@@ -288,8 +287,8 @@ function Index() {
             </section>
 
             {/* PAGE 3: My Origin */}
-            <section className="zoobi-page">
-              <Origin />
+            <section className="zoobi-page zoobi-origin-page relative overflow-hidden">
+              <Origin isNightMode={isNightMode} />
             </section>
 
             {/* PAGE 4: My Projects */}
@@ -384,38 +383,7 @@ function VideoOverlay({ videoSrc, onEnd, onSkip }) {
   );
 }
 /* ─── Nav ───────────────────────────────────────────────────────────────────── */
-function Nav({ dark, onToggle }) {
-  return (
-    <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-8 py-4">
-      <span className="font-display text-3xl font-extrabold rainbow-text drop-shadow">
-        Zoobi
-      </span>
-      <nav className="hidden gap-8 md:flex">
-        {["Home", "Story", "Projects", "Art Studio", "Gallery"].map((n, i) => (
-          <a
-            key={n}
-            href={`#${n}`}
-            className={
-              i === 0 ? "border-b-2 border-ink font-bold" : "hover:text-berry"
-            }
-          >
-            {n}
-          </a>
-        ))}
-      </nav>
-      <div className="flex items-center gap-2">
-        <span className="paper-card px-3 py-1">🎵</span>
-        <button
-          onClick={onToggle}
-          aria-label="Toggle night mode"
-          className="paper-card px-3 py-1 transition hover:scale-105"
-        >
-          {dark ? "🌙 Night" : "☀️ Day"}
-        </button>
-      </div>
-    </header>
-  );
-}
+
 /* ─── Hero ──────────────────────────────────────────────────────────────────── */
 function Hero({ onPlay }) {
   return (
@@ -472,54 +440,317 @@ function Title({ t, s }) {
   );
 }
 
-function Origin() {
+function Origin({ isNightMode }) {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    if (!isNightMode) {
+      vid.play().catch(() => { });
+    } else {
+      vid.pause();
+    }
+  }, [isNightMode]);
+
   return (
-    <section id="Story">
-      <Title
-        t="Zoobi's Origin"
-        s="From a drop of magic, a universe of colors was born..."
-      />
+    <section
+      id="Story"
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        minHeight: "100svh",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* ── Day-mode background video — unmounted in Night mode ── */}
+      {!isNightMode && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            overflow: "hidden",
+            /* fade-in so the video doesn't snap in abruptly */
+            animation: "origin-video-fadein 1.5s ease-out both",
+          }}
+          aria-hidden="true"
+        >
+          {/* The video itself */}
+          <video
+            ref={videoRef}
+            src={originVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
 
+          {/* Feathered top edge — blends into pink/parchment above */}
+          <div style={{
+            position: "absolute",
+            top: 0, left: 0, right: 0,
+            height: "22%",
+            background: "linear-gradient(to bottom, rgba(255,220,230,0.85) 0%, transparent 100%)",
+            pointerEvents: "none",
+          }} />
+          {/* Feathered bottom edge */}
+          <div style={{
+            position: "absolute",
+            bottom: 0, left: 0, right: 0,
+            height: "22%",
+            background: "linear-gradient(to top, rgba(255,220,230,0.85) 0%, transparent 100%)",
+            pointerEvents: "none",
+          }} />
+          {/* Feathered left edge */}
+          <div style={{
+            position: "absolute",
+            top: 0, bottom: 0, left: 0,
+            width: "12%",
+            background: "linear-gradient(to right, rgba(255,215,228,0.80) 0%, transparent 100%)",
+            pointerEvents: "none",
+          }} />
+          {/* Feathered right edge */}
+          <div style={{
+            position: "absolute",
+            top: 0, bottom: 0, right: 0,
+            width: "12%",
+            background: "linear-gradient(to left, rgba(255,215,228,0.80) 0%, transparent 100%)",
+            pointerEvents: "none",
+          }} />
 
-      <div className="origin-book-stage">
-        <Storybook />
+          {/* Centre wash — keeps title and book legible without washing out scene */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(255,235,242,0.18)",
+            pointerEvents: "none",
+          }} />
+        </div>
+      )}
+
+      {/* ── Content layered above video ── */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          flex: "1 1 auto",
+          padding: "clamp(1rem, 3vh, 2rem) clamp(1rem, 4vw, 4rem)",
+          boxSizing: "border-box",
+          pointerEvents: "auto",
+        }}
+      >
+        <Title
+          t="Zoobi's Origin"
+          s="From a drop of magic, a universe of colors was born..."
+        />
+
+        <div className="origin-book-stage">
+          <Storybook />
+        </div>
       </div>
-
-
-
     </section>
+  );
+}
+
+const PERSONALITY_CARDS = [
+  {
+    label: "Curious",
+    icon: "✦",
+    bg: "bg-[#ffe4f0]/90",
+    border: "border-[#f7c0d8]",
+    text: "text-[#b83375]",
+    shadow: "shadow-[0_4px_12px_rgba(244,166,207,0.2)]",
+    tilt: "-rotate-3",
+    floatClass: "zoobi-card-float-1",
+    delay: "0s",
+  },
+  {
+    label: "Playful",
+    icon: "⭐",
+    bg: "bg-[#fff2cc]/90",
+    border: "border-[#f9df94]",
+    text: "text-[#9e6f0b]",
+    shadow: "shadow-[0_4px_12px_rgba(248,216,117,0.2)]",
+    tilt: "rotate-2",
+    floatClass: "zoobi-card-float-2",
+    delay: "0.6s",
+  },
+  {
+    label: "Imaginative",
+    icon: "✨",
+    bg: "bg-[#eee6ff]/90",
+    border: "border-[#d4c2fa]",
+    text: "text-[#6942b0]",
+    shadow: "shadow-[0_4px_12px_rgba(185,165,247,0.2)]",
+    tilt: "-rotate-2",
+    floatClass: "zoobi-card-float-3",
+    delay: "1.2s",
+  },
+  {
+    label: "Kind",
+    icon: "🌸",
+    bg: "bg-[#e2f8ec]/90",
+    border: "border-[#b3ebd0]",
+    text: "text-[#288358]",
+    shadow: "shadow-[0_4px_12px_rgba(169,223,176,0.2)]",
+    tilt: "rotate-3",
+    floatClass: "zoobi-card-float-1",
+    delay: "1.8s",
+  },
+  {
+    label: "A little clumsy",
+    icon: "✧",
+    bg: "bg-[#e0f4fe]/90",
+    border: "border-[#b8e2fa]",
+    text: "text-[#1d6fa5]",
+    shadow: "shadow-[0_4px_12px_rgba(145,217,242,0.2)]",
+    tilt: "-rotate-3",
+    floatClass: "zoobi-card-float-2",
+    delay: "2.4s",
+  },
+  {
+    label: "Always creating",
+    icon: "🖌️",
+    bg: "bg-[#ffe9dc]/90",
+    border: "border-[#facbb2]",
+    text: "text-[#b24e1b]",
+    shadow: "shadow-[0_4px_12px_rgba(255,183,142,0.2)]",
+    tilt: "rotate-2",
+    floatClass: "zoobi-card-float-3",
+    delay: "0.9s",
+  },
+];
+
+function MagicalBubblesBackground() {
+  const bubbles = [
+    { left: "5%", top: "12%", size: 46, tint: "rgba(255, 218, 235, 0.45)", glow: "rgba(255, 180, 220, 0.28)", dur: "7s", delay: "0s" },
+    { left: "15%", top: "70%", size: 34, tint: "rgba(230, 215, 255, 0.45)", glow: "rgba(200, 170, 255, 0.28)", dur: "9s", delay: "-2s" },
+    { left: "25%", top: "18%", size: 58, tint: "rgba(215, 240, 255, 0.42)", glow: "rgba(180, 220, 255, 0.28)", dur: "11s", delay: "-4s" },
+    { left: "32%", top: "84%", size: 28, tint: "rgba(255, 235, 220, 0.45)", glow: "rgba(255, 200, 170, 0.28)", dur: "8s", delay: "-1s" },
+    { left: "48%", top: "6%", size: 40, tint: "rgba(255, 220, 240, 0.42)", glow: "rgba(255, 180, 210, 0.28)", dur: "10s", delay: "-5s" },
+    { left: "65%", top: "86%", size: 50, tint: "rgba(235, 220, 255, 0.45)", glow: "rgba(210, 180, 255, 0.28)", dur: "8.5s", delay: "-3s" },
+    { left: "74%", top: "14%", size: 32, tint: "rgba(215, 245, 255, 0.45)", glow: "rgba(180, 230, 255, 0.28)", dur: "9.5s", delay: "-6s" },
+    { left: "88%", top: "78%", size: 54, tint: "rgba(255, 225, 235, 0.42)", glow: "rgba(255, 190, 210, 0.28)", dur: "10.5s", delay: "-2.5s" },
+    { left: "94%", top: "24%", size: 38, tint: "rgba(255, 240, 215, 0.45)", glow: "rgba(255, 210, 170, 0.28)", dur: "7.5s", delay: "-4.5s" },
+    { left: "54%", top: "80%", size: 24, tint: "rgba(225, 250, 235, 0.42)", glow: "rgba(190, 240, 210, 0.22)", dur: "12s", delay: "-7s" },
+    { left: "10%", top: "44%", size: 22, tint: "rgba(215, 240, 255, 0.4)", glow: "rgba(180, 220, 255, 0.2)", dur: "8.8s", delay: "-3.5s" },
+    { left: "82%", top: "46%", size: 26, tint: "rgba(255, 220, 245, 0.42)", glow: "rgba(255, 180, 220, 0.22)", dur: "9.2s", delay: "-1.8s" },
+  ];
+
+  const stars = [
+    { left: "8%", top: "32%", icon: "✦", color: "#f8d875", dur: "3.5s", delay: "0s" },
+    { left: "28%", top: "64%", icon: "✧", color: "#f4a6cf", dur: "4.2s", delay: "-1.2s" },
+    { left: "68%", top: "26%", icon: "★", color: "#b9a5f7", dur: "4s", delay: "-2.5s" },
+    { left: "82%", top: "12%", icon: "✦", color: "#f8d875", dur: "3.8s", delay: "-0.8s" },
+    { left: "91%", top: "62%", icon: "✧", color: "#91d9f2", dur: "4.5s", delay: "-3s" },
+  ];
+
+  return (
+    <div className="zoobi-magical-bubbles-bg absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+      {bubbles.map((b, i) => (
+        <span
+          key={`b-${i}`}
+          className="zoobi-magical-bubble"
+          style={{
+            left: b.left,
+            top: b.top,
+            width: `${b.size}px`,
+            height: `${b.size}px`,
+            "--bubble-tint": b.tint,
+            "--bubble-glow": b.glow,
+            "--bubble-dur": b.dur,
+            "--bubble-delay": b.delay,
+          }}
+        />
+      ))}
+      {stars.map((s, i) => (
+        <span
+          key={`s-${i}`}
+          className="zoobi-magical-star"
+          style={{
+            left: s.left,
+            top: s.top,
+            "--star-color": s.color,
+            "--star-dur": s.dur,
+            "--star-delay": s.delay,
+          }}
+        >
+          {s.icon}
+        </span>
+      ))}
+    </div>
   );
 }
 
 function Meet() {
   return (
-    <section className="grid items-center gap-8 md:grid-cols-3">
-      <div>
-        <h2 className="text-5xl font-bold">Meet Zoobi</h2>
-        <p className="mt-2">A little creature who brings color to the world.</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {traits.map((t) => (
-            <span key={t} className="paper-card px-3 py-1 text-sm text-berry">
-              {t}
-            </span>
-          ))}
+    <div className="zoobi-personality-stage relative w-full overflow-hidden py-2 sm:py-4">
+      {/* Subtle magical bubbles and sparkles layer BEHIND character and cards */}
+      <MagicalBubblesBackground />
+
+      {/* Main composition: Left (Floating kawaii cards) | Centre (3D Zoobi enlarged) | Right (Character Profile moved farther right) */}
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_1.35fr_1fr] items-center gap-6 xl:gap-10 w-full max-w-7xl mx-auto px-2">
+        {/* LEFT: 6 Floating Kawaii Personality Cards */}
+        <div className="zoobi-traits-cluster flex flex-col gap-3.5 max-w-sm mx-auto lg:mx-0 w-full">
+          <div className="flex flex-wrap lg:flex-col gap-2.5 sm:gap-3.5 justify-center lg:justify-start">
+            {PERSONALITY_CARDS.map((trait) => (
+              <div
+                key={trait.label}
+                className={`zoobi-trait-card ${trait.floatClass} ${trait.bg} ${trait.border} ${trait.shadow} ${trait.tilt} inline-flex items-center gap-2 rounded-2xl border px-4 py-2 sm:py-2.5 backdrop-blur-[2px] transition-all duration-300 hover:scale-105 hover:shadow-md cursor-default`}
+                style={{ animationDelay: trait.delay }}
+              >
+                <span className="text-base select-none" aria-hidden="true">
+                  {trait.icon}
+                </span>
+                <span className={`font-display text-sm sm:text-base font-bold ${trait.text}`}>
+                  {trait.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-        <p className="mt-4 italic">"You see the world. I see a canvas."</p>
+
+        {/* CENTRE: Zoobi 3D Model (Slightly larger, prominent in the centre) */}
+        <div className="zoobi-personality-model flex items-center justify-center w-full max-w-[460px] mx-auto order-first lg:order-none">
+          <Zoobi scale={1.18} />
+        </div>
+
+        {/* RIGHT: Character Profile Card (Moved slightly farther right with breathing room) */}
+        <div className="zoobi-profile-container flex justify-center lg:justify-end w-full">
+          <div className="zoobi-profile-card paper-card rotate-2 hover:rotate-0 transition-transform duration-300 p-5 sm:p-6 w-full max-w-xs sm:max-w-sm shadow-md lg:translate-x-3">
+            <h3 className="mb-3 text-xl font-bold underline font-display text-ink">
+              Character Profile
+            </h3>
+            <ul className="space-y-2 font-display text-sm sm:text-base">
+              <li className="flex items-center gap-2"><span>⭐</span> <span>Species: Zoobi</span></li>
+              <li className="flex items-center gap-2"><span>🖌️</span> <span>Magic Tool: Paintbrush</span></li>
+              <li className="flex items-center gap-2"><span>🏠</span> <span>Home: Dreamy World</span></li>
+              <li className="flex items-center gap-2"><span>🌸</span> <span>Favorite: Colors, Flowers, Stars</span></li>
+              <li className="flex items-center gap-2"><span>💫</span> <span>Dream: To paint the whole universe!</span></li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div className="mx-auto w-full max-w-sm">
-        <Zoobi />
-      </div>
-      <div className="paper-card rotate-2 p-6">
-        <h3 className="mb-3 text-xl font-bold underline">Character Profile</h3>
-        <ul className="space-y-2">
-          <li>⭐ Species: Zoobi</li>
-          <li>🖌️ Magic Tool: Paintbrush</li>
-          <li>🏠 Home: Dreamy World</li>
-          <li>🌸 Favorite: Colors, Flowers, Stars</li>
-          <li>💫 Dream: To paint the whole universe!</li>
-        </ul>
-      </div>
-    </section>
+    </div>
   );
 }
 

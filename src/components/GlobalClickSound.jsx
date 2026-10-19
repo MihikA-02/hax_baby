@@ -33,10 +33,10 @@ export default function GlobalClickSound() {
       // Detect if user clicked an interactive control vs background
       const isInteractive = Boolean(
         e.target &&
-          e.target.closest &&
-          e.target.closest(
-            'a, button, input, select, textarea, [role="button"], [role="tab"], [role="link"], label, summary, [data-clickable="true"]'
-          )
+        e.target.closest &&
+        e.target.closest(
+          'a, button, input, select, textarea, [role="button"], [role="tab"], [role="link"], label, summary, [data-clickable="true"]'
+        )
       );
 
       cursorSound.play({ isInteractive });
@@ -87,7 +87,7 @@ export default function GlobalClickSound() {
   return (
     <div
       ref={panelRef}
-      className="fixed bottom-4 right-4 z-[9999] select-none"
+      className="fixed bottom-4 left-4 z-[9999] select-none"
       data-no-click-sound="true"
     >
       {/* Options Panel Popup */}
@@ -124,11 +124,10 @@ export default function GlobalClickSound() {
                 <button
                   key={item.id}
                   onClick={(e) => handleSelectSound(item.id, e)}
-                  className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-left text-xs font-medium transition-all ${
-                    active
+                  className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-left text-xs font-medium transition-all ${active
                       ? "bg-[#ffe2ee] text-[#dc4c9b] font-bold shadow-sm"
                       : "hover:bg-[#fff0bf]/60 text-[#514582]"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-2">
                     <span>{item.icon}</span>
@@ -158,11 +157,10 @@ export default function GlobalClickSound() {
                 <button
                   key={lvl.label}
                   onClick={(e) => handleVolumeChange(lvl.val, e)}
-                  className={`flex-1 py-1 rounded-lg text-[11px] font-semibold transition-all ${
-                    Math.abs(state.volume - lvl.val) < 0.1
+                  className={`flex-1 py-1 rounded-lg text-[11px] font-semibold transition-all ${Math.abs(state.volume - lvl.val) < 0.1
                       ? "bg-[#514582] text-white shadow-sm"
                       : "bg-[#fff0bf]/60 text-[#514582] hover:bg-[#ffe2ee]"
-                  }`}
+                    }`}
                 >
                   {lvl.label}
                 </button>
@@ -184,11 +182,10 @@ export default function GlobalClickSound() {
           onClick={handleToggleMute}
           aria-label={state.muted ? "Unmute cursor click sound" : "Mute cursor click sound"}
           title={state.muted ? "Click to unmute cursor clicks" : "Click to mute cursor clicks"}
-          className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-colors ${
-            state.muted
+          className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-colors ${state.muted
               ? "bg-gray-200/80 text-gray-500 hover:bg-gray-300/80"
               : "bg-[#ffe2ee] text-[#dc4c9b] hover:bg-[#ffd1e3]"
-          }`}
+            }`}
         >
           {state.muted ? (
             <>
@@ -211,16 +208,14 @@ export default function GlobalClickSound() {
           }}
           aria-label="Cursor sound options"
           title="Customize click sound & volume"
-          className={`rounded-full p-1.5 transition-colors ${
-            panelOpen
+          className={`rounded-full p-1.5 transition-colors ${panelOpen
               ? "bg-[#514582] text-white"
               : "text-[#514582] hover:bg-[#fff0bf] hover:text-[#dc4c9b]"
-          }`}
+            }`}
         >
           <ChevronUp
-            className={`w-3.5 h-3.5 transition-transform duration-200 ${
-              panelOpen ? "rotate-180" : ""
-            }`}
+            className={`w-3.5 h-3.5 transition-transform duration-200 ${panelOpen ? "rotate-180" : ""
+              }`}
           />
         </button>
       </div>

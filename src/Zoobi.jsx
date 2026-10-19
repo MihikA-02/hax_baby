@@ -4,7 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Center, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-function ZoobiModel({ isBouncing, onBounceEnd, isSpinning, onSpinEnd, onModelClick }) {
+function ZoobiModel({ isBouncing, onBounceEnd, isSpinning, onSpinEnd, onModelClick, scale = 1.18 }) {
   const group = useRef();
   const { scene } = useGLTF("/models/bunny_artist.glb");
 
@@ -67,6 +67,7 @@ function ZoobiModel({ isBouncing, onBounceEnd, isSpinning, onSpinEnd, onModelCli
   return (
     <group
       ref={group}
+      scale={scale}
       onClick={(e) => {
         e.stopPropagation();
         onModelClick();
@@ -203,7 +204,7 @@ function SecretModal({ isOpen, onClose }) {
   );
 }
 
-export default function Zoobi() {
+export default function Zoobi({ scale = 1.18, className = "" }) {
   const [mounted, setMounted] = useState(false);
   const [bouncing, setBouncing] = useState(false);
   const [spinning, setSpinning] = useState(false);
@@ -243,7 +244,7 @@ export default function Zoobi() {
 
   if (!mounted) {
     return (
-      <div className="zoobi-container flex items-center justify-center">
+      <div className={`zoobi-container flex items-center justify-center ${className}`}>
         <div className="animate-pulse text-sm opacity-60 font-display">
           Summoning Zoobi... 🎨
         </div>
@@ -253,7 +254,7 @@ export default function Zoobi() {
 
   return (
     <div
-      className="zoobi-container relative cursor-pointer select-none"
+      className={`zoobi-container relative cursor-pointer select-none ${className}`}
       title="Click Zoobi to say hello!"
     >
       <ParticleBurst
@@ -277,6 +278,7 @@ export default function Zoobi() {
             isSpinning={spinning}
             onSpinEnd={() => setSpinning(false)}
             onModelClick={handleModelClick}
+            scale={scale}
           />
         </Suspense>
       </Canvas>
