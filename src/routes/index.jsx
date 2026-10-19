@@ -4,6 +4,10 @@ import heroBook from "@/assets/hero-book.jpg";
 import parchment from "@/assets/parchment-bg.jpg";
 import night from "@/assets/night.jpg";
 import meadow from "@/assets/meadow.jpg";
+import gallery3 from "@/assets/gallery3.png";
+import gallery4 from "@/assets/gallery4.png";
+import gallery5 from "@/assets/gallery5.png";
+import gallery6 from "@/assets/gallery6.png";
 import zoobi from "@/assets/zoobi.png";
 import heroVideo from "@/assets/hero_page.mp4";
 import originVideo from "@/assets/origin_page.mp4";
@@ -397,13 +401,10 @@ function Hero({ onPlay }) {
         alt="Open storybook with sketched world"
         width={1920}
         height={1088}
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain"
       />
-      <div className="absolute left-[18%] top-[18%] w-[30%] text-center">
-        <h1
-          className="font-display text-6xl font-extrabold text-ink md:text-8xl"
-          style={{ WebkitTextStroke: "2px var(--ink)", color: "transparent" }}
-        >
+      <div className="absolute left-[24%] top-[18%] w-[30%] text-center">
+        <h1 className="hero-zoobi-title">
           Zoobi
         </h1>
         <p className="tracking-[0.2em] text-sm uppercase">
@@ -477,6 +478,10 @@ function Origin({ isNightMode }) {
             overflow: "hidden",
             /* fade-in so the video doesn't snap in abruptly */
             animation: "origin-video-fadein 1.5s ease-out both",
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
           }}
           aria-hidden="true"
         >
@@ -853,15 +858,15 @@ function Studio() {
   );
 }
 function Gallery() {
-  const imgs = [meadow, night, heroBook, meadow, night, heroBook];
-  const filters = [
-    "",
-    "",
-    "sepia",
-    "hue-rotate-30",
-    "hue-rotate-60",
-    "saturate-200",
+  const imgs = [
+    night,
+    meadow,
+    gallery3,
+    gallery4,
+    gallery5,
+    gallery6,
   ];
+
   const row = useRef(null);
   const scroll = (d) =>
     row.current?.scrollBy({ left: d * 300, behavior: "smooth" });
@@ -891,13 +896,9 @@ function Gallery() {
                 src={s}
                 alt=""
                 loading="lazy"
-                className={`h-full w-full object-cover ${filters[i]}`}
+                className="h-full w-full object-cover"
               />
-              <img
-                src={zoobi}
-                alt=""
-                className="absolute bottom-0 left-1/2 w-20 -translate-x-1/2"
-              />
+
             </div>
           ))}
         </div>
