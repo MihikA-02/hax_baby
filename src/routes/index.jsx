@@ -11,6 +11,9 @@ import Zoobi from "@/Zoobi";
 import SparkleCursor from "@/SparkleCursor";
 import Storybook from "@/components/storybook/Storybook";
 import InteractiveZoobi from "@/components/InteractiveZoobi";
+import nightBg from "@/assets/night_bg.png";
+import FlashlightOverlay from "@/components/FlashlightOverlay";
+import { Sun, Moon, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -76,8 +79,16 @@ const palette = [
 /* ─── Main Page ─────────────────────────────────────────────────────────────── */
 function Index() {
   const [dark, setDark] = useState(false);
+  const [isNightMode, setIsNightMode] = useState(false);
+  const [isChaosMode, setIsChaosMode] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const [siteUnlocked, setSiteUnlocked] = useState(false);
+  const [siteUnlocked, setSiteUnlocked] = useState(() => {
+    try {
+      return window.sessionStorage.getItem("zoobi-site-unlocked") === "true";
+    } catch {
+      return false;
+    }
+  });
   function handlePlayClick() {
     setShowVideo(true);
     document.body.style.overflow = "hidden";
@@ -105,19 +116,95 @@ function Index() {
         />
       )}
 
+      {/* Post-intro control toggles: Chaos Mode & Day/Night Mode */}
+      {siteUnlocked && (
+        <div className="fixed top-3 right-3 sm:top-5 sm:right-6 z-50 flex items-center gap-2 select-none">
+          {/* Chaos Mode Toggle */}
+          <button
+            type="button"
+            onClick={() => setIsChaosMode((prev) => !prev)}
+            aria-pressed={isChaosMode}
+            aria-label={isChaosMode ? "Restore normal layout" : "Activate Chaos Mode"}
+            className={`zoobi-chaos-toggle flex items-center gap-1.5 rounded-full px-3 py-1.5 sm:px-3.5 sm:py-2 font-display text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-berry backdrop-blur-md ${
+              isChaosMode
+                ? "bg-[#ff4e88]/90 text-white border-2 border-[#ffb3d1] shadow-[0_4px_16px_rgba(255,78,136,0.4)] animate-pulse"
+                : isNightMode
+                  ? "bg-[#1f1b40]/85 text-[#f0e8ff] border border-[#7f6bbb]/60 shadow-[0_4px_16px_rgba(10,5,28,0.5)] hover:bg-[#2d275e] hover:border-[#a08cee]"
+                  : "bg-[#fffaf3]/90 text-[#514582] border border-[#edc5d9] shadow-[0_4px_14px_rgba(220,76,155,0.18)] hover:bg-[#fffaf3] hover:border-[#dc4c9b]"
+            }`}
+          >
+            {isChaosMode ? (
+              <>
+                <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
+                <span>✨ Restore Order</span>
+              </>
+            ) : (
+              <>
+                <span className="text-sm">🌀</span>
+                <span>Chaos</span>
+              </>
+            )}
+          </button>
+
+          {/* Day / Night Mode Toggle */}
+          <button
+            type="button"
+            onClick={() => setIsNightMode((prev) => !prev)}
+            aria-pressed={isNightMode}
+            aria-label={isNightMode ? "Switch to Day mode" : "Switch to Night mode"}
+            className={`zoobi-theme-toggle flex items-center gap-1.5 rounded-full px-3 py-1.5 sm:px-3.5 sm:py-2 font-display text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-berry backdrop-blur-md ${
+              isNightMode
+                ? "bg-[#181636]/85 text-[#f0e8ff] border border-[#7f6bbb]/60 shadow-[0_4px_16px_rgba(10,5,28,0.5)] hover:bg-[#241f4d] hover:border-[#a08cee]"
+                : "bg-[#fffaf3]/90 text-[#514582] border border-[#edc5d9] shadow-[0_4px_14px_rgba(220,76,155,0.18)] hover:bg-[#fffaf3] hover:border-[#dc4c9b]"
+            }`}
+          >
+            {isNightMode ? (
+              <>
+                <Moon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f0c24b]" aria-hidden="true" />
+                <span>Night</span>
+              </>
+            ) : (
+              <>
+                <Sun className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f59e0b]" aria-hidden="true" />
+                <span>Day</span>
+              </>
+            )}
+          </button>
+        </div>
+      )}
+
       <div
-        className={`transition-colors duration-500 ${dark ? "dark" : ""}`}
+        className={`transition-colors duration-500 ${!siteUnlocked && dark ? "dark" : ""}`}
         style={
-          dark
-            ? { background: "var(--parchment)", minHeight: "100vh" }
-            : {
-              backgroundImage: `url(${parchment})`,
-              backgroundSize: "100% auto",
-              minHeight: "100vh",
-            }
+          !siteUnlocked
+            ? dark
+              ? { background: "var(--parchment)", minHeight: "100vh" }
+              : {
+                  backgroundImage: `url(${parchment})`,
+                  backgroundSize: "100% auto",
+                  minHeight: "100vh",
+                }
+            : isNightMode
+              ? {
+                  backgroundImage: `url(${nightBg})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundAttachment: "fixed",
+                  backgroundColor: "#070919",
+                  minHeight: "100vh",
+                }
+              : dark
+                ? { background: "var(--parchment)", minHeight: "100vh" }
+                : {
+                    backgroundImage: `url(${parchment})`,
+                    backgroundSize: "100% auto",
+                    minHeight: "100vh",
+                  }
         }
       >
-        <SparkleCursor />
+        {/* Cursor effect: In Day mode SparkleCursor, in Night mode FlashlightOverlay */}
+        {!isNightMode ? <SparkleCursor /> : siteUnlocked ? <FlashlightOverlay /> : null}
 
         {/* Show the book landing page only before the intro is dismissed */}
         {!siteUnlocked && (
@@ -131,7 +218,10 @@ function Index() {
 
         {/* All post-video pages */}
         {siteUnlocked && (
-          <div className="zoobi-pages-scroll" id="PortfolioPages">
+          <div
+            className={`zoobi-pages-scroll ${isNightMode ? "zoobi-night-mode" : ""} ${isChaosMode ? "zoobi-chaos-mode" : ""}`}
+            id="PortfolioPages"
+          >
 
             {/* PAGE 1: Welcome screen */}
             <section

@@ -9,7 +9,16 @@ export default function ProjectLayout({ title, intro, theme = 'book', hero, cta,
     <div className={`zp-page zp-theme-${theme}${compact ? ' is-compact' : ''}`}>
       <div className="zp-page-inner">
         <nav className="zp-topbar" aria-label="Project navigation">
-          <Link to="/" hash={HOME_PROJECTS_HASH} className="zp-back">
+          <Link
+            to="/"
+            hash={HOME_PROJECTS_HASH}
+            className="zp-back"
+            onClick={() => {
+              try {
+                window.sessionStorage.setItem("zoobi-site-unlocked", "true");
+              } catch { }
+            }}
+          >
             <ArrowLeft aria-hidden="true" size={18} />
             <span>Back to projects</span>
           </Link>
