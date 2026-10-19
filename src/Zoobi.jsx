@@ -6,6 +6,7 @@ import * as THREE from "three";
 function ZoobiModel({ isBouncing, onBounceEnd }) {
   const group = useRef();
   const { scene } = useGLTF("/models/bunny_artist.glb");
+
   const bounceTime = useRef(0);
 
   useFrame(({ pointer, clock }, delta) => {

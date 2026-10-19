@@ -9,6 +9,7 @@ import heroVideo from "@/assets/hero_page.mp4";
 import Zoobi from "@/Zoobi";
 import SparkleCursor from "@/SparkleCursor";
 import Storybook from "@/components/storybook/Storybook";
+import InteractiveZoobi from "@/components/InteractiveZoobi";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -317,6 +318,7 @@ function Title({ t, s }) {
     </div>
   );
 }
+
 function Origin() {
   return (
     <section id="Story">
@@ -324,10 +326,22 @@ function Origin() {
         t="Zoobi's Origin"
         s="From a drop of magic, a universe of colors was born..."
       />
-      <Storybook />
+
+      <div className="mx-auto grid max-w-5xl grid-cols-1 items-center gap-8 md:grid-cols-2">
+        {/* Left: Storybook */}
+        <div className="flex justify-center">
+          <Storybook />
+        </div>
+
+        {/* Right: Interactive Zoobi */}
+        <div className="flex items-center justify-center">
+          <InteractiveZoobi />
+        </div>
+      </div>
     </section>
   );
 }
+
 function Meet() {
   return (
     <section className="grid items-center gap-8 md:grid-cols-3">
