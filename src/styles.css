@@ -250,3 +250,120 @@
   width: 100%;
   height: 100%;
 }
+
+/* =========================================
+   ZOOBI: FULL-SCREEN SCROLLING PAGES
+   Applies only to content after the intro
+   ========================================= */
+
+.zoobi-pages-scroll {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Each section becomes one full-screen page */
+.zoobi-pages-scroll>.zoobi-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vh, 2rem) clamp(1rem, 4vw, 4rem);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow-x: hidden;
+}
+
+/* Keep each existing section centred within its page */
+.zoobi-page>section {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Avoid oversized title gaps inside full-screen pages */
+.zoobi-page .mb-8 {
+  margin-bottom: clamp(0.5rem, 1.5vh, 1.25rem);
+}
+
+/* Keep the Meet Zoobi layout balanced */
+.zoobi-page #Personality {
+  width: 100%;
+}
+
+/* Responsive layout for phones and small screens */
+@media (max-width: 760px) {
+  .zoobi-pages-scroll {
+    scroll-snap-type: y proximity;
+  }
+
+  .zoobi-pages-scroll>.zoobi-page {
+    padding: 1.25rem 1rem;
+    overflow-y: auto;
+    scroll-snap-stop: normal;
+  }
+
+  .zoobi-page>section {
+    width: 100%;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .zoobi-pages-scroll {
+    scroll-behavior: auto;
+  }
+}
+
+/* Give Gallery and Guestbook breathing room on their shared page */
+.zoobi-gallery-guestbook-page {
+  justify-content: flex-start;
+  gap: clamp(1.55rem, 12vh, 9rem);
+  padding-top: clamp(1rem, 2vh, 1.5rem);
+  padding-bottom: 1rem;
+}
+
+.zoobi-gallery-guestbook-page>#Gallery,
+.zoobi-gallery-guestbook-page>#Guestbook {
+  flex-shrink: 0;
+}
+
+/* Art Studio + Gallery share one full-screen page */
+.zoobi-canvas-world-page {
+  justify-content: flex-start;
+  gap: clamp(1.5rem, 18vh, 7.5rem);
+  padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
+  padding-bottom: 1rem;
+}
+
+.zoobi-canvas-world-page>section {
+  flex: 0 0 auto;
+}
+
+.zoobi-canvas-world-page .mb-8 {
+  margin-bottom: 0.4rem;
+}
+
+.zoobi-canvas-world-page canvas {
+  height: clamp(180px, 27vh, 250px) !important;
+}
+
+/* Guestbook gets its own dedicated screen */
+.zoobi-guestbook-page {
+  justify-content: center;
+  gap: 1rem;
+}

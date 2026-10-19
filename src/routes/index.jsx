@@ -129,45 +129,96 @@ function Index() {
         }
       >
         <SparkleCursor />
-        {/* Hero – full viewport, no scroll until siteUnlocked */}
-        <div
-          style={!siteUnlocked ? { height: "100vh", overflow: "hidden" } : {}}
-        >
-          <Nav dark={dark} onToggle={() => setDark(!dark)} />
-          <Hero onPlay={handlePlayClick} />
-        </div>
 
-        {/* Rest of the site – only rendered after the intro is dismissed */}
+        {/* Show the book landing page only before the intro is dismissed */}
+        {!siteUnlocked && (
+          <div style={{ height: "100vh", overflow: "hidden" }}>
+            <Nav dark={dark} onToggle={() => setDark(!dark)} />
+            <Hero onPlay={handlePlayClick} />
+          </div>
+        )}
+
+        {/* First page after intro: parchment + interactive Zoobi */}
+
+        {/* All post-video pages */}
         {siteUnlocked && (
-          <>
-            <main className="mx-auto max-w-6xl space-y-20 px-6 py-16">
+          <div className="zoobi-pages-scroll" id="PortfolioPages">
+
+            {/* PAGE 1: Welcome screen */}
+            <section
+              id="Welcome"
+              className="zoobi-page relative w-full overflow-hidden"
+              style={{
+                //backgroundImage: `url(${parchment})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              {/* Interactive Zoobi on the left */}
+              <div className="absolute left-[2%] top-1/2 w-[min(48vw,500px)] -translate-y-1/2">
+                <InteractiveZoobi />
+              </div>
+
+              {/* Keep your existing welcome text and navigation here */}
+            </section>
+
+            {/* PAGE 2: My Personality */}
+            <section id="Personality" className="zoobi-page">
               <Meet />
+            </section>
+
+            {/* PAGE 3: My Origin */}
+            <section className="zoobi-page">
               <Origin />
+            </section>
+
+            {/* PAGE 4: My Projects */}
+            <section className="zoobi-page">
               <Projects />
+            </section>
+
+            {/* PAGE 5: Art Studio + Zoobi's World */}
+            <section className="zoobi-page zoobi-canvas-world-page">
               <Studio />
               <Gallery />
+            </section>
+
+            {/* PAGE 6: Full-screen Guestbook */}
+            <section
+              id="Guestbook"
+              className="zoobi-page zoobi-guestbook-page"
+            >
               <Guestbook />
-            </main>
-            <footer className="border-t border-ink/10 py-8 text-center">
-              <div className="font-display text-3xl font-extrabold rainbow-text">
-                Zoobi
-              </div>
-              <nav className="mt-2 flex justify-center gap-6 text-sm">
-                {["Home", "Story", "Projects", "Art Studio", "Gallery"].map(
-                  (n) => (
-                    <a key={n} href={`#${n}`}>
-                      {n}
-                    </a>
-                  ),
-                )}
-              </nav>
-            </footer>
-          </>
+
+              {/* Keep your existing footer here */}
+              <footer className="border-t border-ink/10 py-8 text-center">
+                <div className="font-display text-3xl font-extrabold rainbow-text">
+                  Zoobi
+                </div>
+
+                <nav className="mt-2 flex justify-center gap-6 text-sm">
+                  {["Personality", "Story", "Projects", "Gallery", "Guestbook"].map(
+                    (n) => (
+                      <a key={n} href={`#${n}`}>
+                        {n}
+                      </a>
+                    )
+                  )}
+                </nav>
+              </footer>
+            </section>
+
+
+          </div>
         )}
+
       </div>
     </>
   );
 }
+
+
 /* ─── Video Overlay ─────────────────────────────────────────────────────────── */
 function VideoOverlay({ videoSrc, onEnd, onSkip }) {
   const videoRef = useRef(null);
@@ -333,10 +384,7 @@ function Origin() {
           <Storybook />
         </div>
 
-        {/* Right: Interactive Zoobi */}
-        <div className="flex items-center justify-center">
-          <InteractiveZoobi />
-        </div>
+
       </div>
     </section>
   );
@@ -571,46 +619,214 @@ function Gallery() {
     </section>
   );
 }
+
 function Guestbook() {
+  const [name, setName] = useState("");
+  const [emoji, setEmoji] = useState("💖");
+  const [message, setMessage] = useState("");
   const [msgs, setMsgs] = useState([]);
-  const [v, setV] = useState("");
+
+  const emojis = ["💖", "🌸", "⭐", "🦋", "🌈", "🎨", "☁️", "✨"];
+
+  const noteColors = [
+    "#F9DCE9",
+    "#E8E2FC",
+    "#FFF0BD",
+    "#DDF2E5",
+    "#FFE3D6",
+  ];
+
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem("zoobi-guestbook") || "[]"
+      );
+
+      if (Array.isArray(saved)) setMsgs(saved);
+    } catch {
+      setMsgs([]);
+    }
+
+    // Keep other tabs of this browser in sync.
+    function syncMessages(event) {
+      if (event.key !== "zoobi-guestbook") return;
+
+      try {
+        setMsgs(JSON.parse(event.newValue || "[]"));
+      } catch {
+        setMsgs([]);
+      }
+    }
+
+    window.addEventListener("storage", syncMessages);
+    return () => window.removeEventListener("storage", syncMessages);
+  }, []);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const cleanName = name.trim();
+    const cleanMessage = message.trim();
+
+    if (!cleanName || !cleanMessage) return;
+
+    const newNote = {
+      id: `${Date.now()}-${Math.random()}`,
+      name: cleanName,
+      emoji,
+      message: cleanMessage,
+    };
+
+    const updatedMessages = [newNote, ...msgs].slice(0, 40);
+
+    try {
+      localStorage.setItem(
+        "zoobi-guestbook",
+        JSON.stringify(updatedMessages)
+      );
+
+      setMsgs(updatedMessages);
+      setName("");
+      setMessage("");
+      setEmoji("💖");
+    } catch {
+      alert("Your note couldn't be saved in this browser.");
+    }
+  }
+
   return (
-    <section className="grid items-center gap-6 md:grid-cols-[1fr_3fr_1fr]">
-      <div className="paper-card -rotate-6 p-4 text-center">
-        💗
-        <br />
-        Color makes everything better
+    <section className="w-full">
+      <div className="mb-5 text-center">
+        <p className="mb-1 text-sm font-bold tracking-widest text-berry">
+          ✦ LITTLE NOTES, BIG LOVE ✦
+        </p>
+
+        <h2 className="text-4xl font-bold text-ink">
+          The Guestbook <span>💌</span>
+        </h2>
+
+        <p className="mt-1 opacity-80">
+          Leave a little sparkle in Zoobi's world!
+        </p>
       </div>
-      <div>
-        <Title t="Guestbook ⭐" s="Leave a little piece of your world here." />
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (v.trim()) {
-              setMsgs([v, ...msgs]);
-              setV("");
-            }
-          }}
-          className="paper-card flex gap-3 p-3"
-        >
-          <input
-            value={v}
-            onChange={(e) => setV(e.target.value)}
-            placeholder="Write something..."
-            className="flex-1 rounded-lg border border-ink/20 bg-background px-3 py-2 outline-none"
-          />
-          <button className="btn-berry px-6">Post ✈</button>
-        </form>
-        <ul className="mt-4 space-y-2">
-          {msgs.map((m, i) => (
-            <li key={i} className="paper-card px-4 py-2">
-              {m}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="paper-card rotate-6 p-4 text-center">
-        Thank you for being here! ♡
+
+      <form
+        onSubmit={handleSubmit}
+        className="paper-card mx-auto grid max-w-4xl gap-3 p-4"
+      >
+        <input
+          type="text"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          placeholder="Your name..."
+          aria-label="Your name"
+          maxLength={30}
+          required
+          className="w-full rounded-xl border border-ink/20 bg-white/90 px-4 py-2 text-ink outline-none focus:ring-2 focus:ring-berry"
+        />
+
+        <div>
+          <p className="mb-2 text-sm font-bold">Choose your little emoji</p>
+
+          <div className="flex flex-wrap gap-2">
+            {emojis.map((item) => (
+              <button
+                key={item}
+                type="button"
+                aria-label={`Choose ${item}`}
+                aria-pressed={emoji === item}
+                onClick={() => setEmoji(item)}
+                className={`grid h-10 w-10 place-items-center rounded-full border bg-white/80 text-xl transition hover:scale-110 ${emoji === item
+                  ? "border-berry ring-2 ring-berry/40"
+                  : "border-ink/10"
+                  }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <textarea
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          placeholder="Write a little message for Zoobi..."
+          aria-label="Your message"
+          maxLength={240}
+          rows={2}
+          required
+          className="w-full resize-y rounded-xl border border-ink/20 bg-white/90 px-4 py-3 text-ink outline-none focus:ring-2 focus:ring-berry"
+        />
+
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-xs opacity-60">
+            {message.length}/240 characters
+          </span>
+
+          <button
+            type="submit"
+            className="btn-berry px-6 py-2 font-bold"
+          >
+            Pin my note 📌
+          </button>
+        </div>
+      </form>
+
+      <div className="mx-auto mt-6 max-w-5xl">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h3 className="text-xl font-bold text-ink">
+            Notes pinned with love ♡
+          </h3>
+
+          <span className="text-sm opacity-70">
+            {msgs.length} {msgs.length === 1 ? "note" : "notes"}
+          </span>
+        </div>
+
+        {msgs.length === 0 ? (
+          <div className="paper-card p-6 text-center">
+            <p className="text-3xl">📌</p>
+            <p className="mt-2 font-bold">This wall is waiting for you!</p>
+            <p className="mt-1 text-sm opacity-70">
+              Be the first to pin a little message.
+            </p>
+          </div>
+        ) : (
+          <div className="grid max-h-56 grid-cols-1 gap-4 overflow-y-auto p-2 sm:grid-cols-2 lg:grid-cols-3">
+            {msgs.map((note, index) => {
+              const rotations = [-1.5, 1.2, -0.6, 1.7, -1];
+
+              return (
+                <article
+                  key={note.id}
+                  className="relative min-h-32 rounded-xl px-4 pb-4 pt-6 shadow-md transition duration-200 hover:z-10 hover:scale-[1.03]"
+                  style={{
+                    backgroundColor:
+                      noteColors[index % noteColors.length],
+                    transform: `rotate(${rotations[index % rotations.length]}deg)`,
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-1/2 top-1.5 h-3 w-3 -translate-x-1/2 rounded-full border border-white/80 bg-berry shadow-sm"
+                  />
+
+                  <p className="font-bold text-ink">
+                    {note.emoji} {note.name}
+                  </p>
+
+                  <p className="mt-2 whitespace-pre-wrap break-words text-sm text-ink">
+                    {note.message}
+                  </p>
+
+                  <p className="mt-3 text-right text-xs opacity-60">
+                    pinned with love ♡
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

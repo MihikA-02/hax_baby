@@ -29,7 +29,7 @@ export default function InteractiveZoobi() {
             style={{
                 position: "relative",
                 width: "100%",
-                maxWidth: 420,
+                maxWidth: "none",
                 margin: "0 auto",
             }}
         >
