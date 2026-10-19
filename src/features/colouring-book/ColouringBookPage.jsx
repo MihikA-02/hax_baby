@@ -73,26 +73,7 @@ export default function ColouringBookPage({ artId, tryMode, onOpenArt, onCloseAr
               ))}
             </ul>
           </section>
-          <section className="zp-section" aria-labelledby="zp-shelf-2">
-            <h2 id="zp-shelf-2" className="zp-h2">
-              From the older sketchbook
-            </h2>
-            <p className="zp-section-lede">Six more drawings, each one made line by line.</p>
-            <ul className="zp-gallery">
-              {artworks.map((a) => (
-                <li key={a.id}>
-                  <button type="button" className="zp-art-card" onClick={() => onOpenArt(a.id)}>
-                    <LazyMount className="zp-art-thumb">
-                      <PaintCanvas artwork={a} mode="outline" />
-                    </LazyMount>
-                    <span className="zp-art-title">{a.title}</span>
-                    <span className="zp-art-desc">{a.blurb}</span>
-                    <span className="zp-art-cta">Click to see how creatively Zoobi drew it</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </section>
+
           <section className="zp-try-band">
             <p>Wanna try creating your own?</p>
             <WannaTryButton onClick={onTry} />

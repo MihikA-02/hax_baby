@@ -149,7 +149,47 @@ function Index() {
                 <InteractiveZoobi />
               </div>
 
-              {/* Keep your existing welcome text and navigation here */}
+
+              {/* Welcome text and navigation on the right */}
+              <div className="zoobi-welcome-copy">
+                <p className="zoobi-welcome-kicker">
+                  ✦ THE UNIVERSE COLOR KEEPER ✦
+                </p>
+
+                <h1 className="zoobi-welcome-title">
+                  <span className="zoobi-welcome-hello">Hii, I am</span>
+                  <span className="zoobi-welcome-name">ZOOBI!</span>
+                </h1>
+
+                <p className="zoobi-welcome-subtitle">
+                  Welcome to my portfolio!
+                </p>
+
+                <p className="zoobi-welcome-description">
+                  I'm a tiny artist with{" "}
+                  <strong>BIG dreams</strong>, a magical brush
+                  and endless colours to share.
+                </p>
+
+                <nav
+                  className="zoobi-welcome-links"
+                  aria-label="Explore Zoobi's portfolio"
+                >
+                  <a href="#Personality">♡ My Personality</a>
+                  <a href="#Story"> My Origin</a>
+                  <a href="#Projects"> My Projects</a>
+                  <a href="#Gallery"> My World</a>
+                  <a href="#Guestbook"> The Guestbook</a>
+                </nav>
+
+                <a
+                  className="zoobi-welcome-explore"
+                  href="#Personality"
+                >
+                  ↓ Come explore my world!
+                </a>
+              </div>
+
             </section>
 
             {/* PAGE 2: My Personality */}

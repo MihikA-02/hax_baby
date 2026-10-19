@@ -421,3 +421,242 @@
     animation: none;
   }
 }
+
+/* ==========================================
+   ZOOBI WELCOME — DRAMATIC BUBBLY INTRO
+   ========================================== */
+
+.zoobi-welcome-copy {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: clamp(1.25rem, 3.5vw, 4rem);
+  width: min(54vw, 790px);
+  transform: translateY(-50%);
+  text-align: center;
+  color: #34377f;
+  animation: zoobi-welcome-appear 0.9s ease-out both;
+}
+
+.zoobi-welcome-kicker {
+  margin: 0 0 0.8rem;
+  color: #b74f94;
+  font-family: "Baloo 2", cursive;
+  font-size: clamp(0.75rem, 1.1vw, 1rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.zoobi-welcome-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  font-family: "Baloo 2", cursive;
+  font-weight: 800;
+}
+
+.zoobi-welcome-hello {
+  font-size: clamp(2.5rem, 4.2vw, 4.2rem);
+  line-height: 1.05;
+  color: #34377f;
+  letter-spacing: -0.025em;
+}
+
+.zoobi-welcome-name {
+  display: inline-block;
+  margin-top: -0.05em;
+  font-size: clamp(5rem, 8.5vw, 8rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+  background: linear-gradient(100deg,
+      #f04f9d 5%,
+      #a85ce8 38%,
+      #398ce8 67%,
+      #ed9b40 95%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 0 #ffffff8c);
+}
+
+.zoobi-welcome-subtitle {
+  margin: 0.6rem 0 0;
+  color: #7958bf;
+  font-family: "Baloo 2", cursive;
+  font-size: clamp(1.4rem, 2.25vw, 2rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.zoobi-welcome-description {
+  max-width: 39rem;
+  margin: 0.9rem auto 1.25rem;
+  color: #4d456e;
+  font-family: "Patrick Hand", cursive;
+  font-size: clamp(1.15rem, 1.65vw, 1.5rem);
+  line-height: 1.45;
+}
+
+.zoobi-welcome-description strong {
+  color: #dc4c9b;
+  font-family: "Baloo 2", cursive;
+  font-weight: 800;
+}
+
+.zoobi-welcome-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  max-width: 44rem;
+  margin: 1.15rem auto 1rem;
+}
+
+.zoobi-welcome-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.55rem 1.05rem;
+  border: 1.5px solid #edc5d9;
+  border-radius: 999px;
+  background: #fffaf3eF;
+  box-shadow: 0 4px 0 #d9b2c329;
+  color: #514582;
+  text-decoration: none;
+  font-family: "Baloo 2", cursive;
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.zoobi-welcome-links a:nth-child(1) {
+  background: #ffe2ee;
+}
+
+.zoobi-welcome-links a:nth-child(2) {
+  background: #eae3ff;
+}
+
+.zoobi-welcome-links a:nth-child(3) {
+  background: #fff0bf;
+}
+
+.zoobi-welcome-links a:nth-child(4) {
+  background: #dff4ec;
+}
+
+.zoobi-welcome-links a:nth-child(5) {
+  background: #ffe7d9;
+}
+
+.zoobi-welcome-links a:hover,
+.zoobi-welcome-links a:focus-visible {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: 0 7px 0 #d9b2c333;
+  outline: none;
+}
+
+.zoobi-welcome-explore {
+  display: inline-block;
+  margin-top: 0.45rem;
+  color: #34377f;
+  text-decoration: none;
+  font-family: "Baloo 2", cursive;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-weight: 800;
+  animation: zoobi-explore-bob 2.2s ease-in-out infinite;
+}
+
+.zoobi-welcome-explore:hover {
+  color: #d94d9c;
+}
+
+@keyframes zoobi-welcome-appear {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes zoobi-explore-bob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* Responsive layout */
+@media (max-width: 760px) {
+  .zoobi-welcome-copy {
+    top: 48%;
+    right: 4%;
+    width: 92%;
+    transform: translateY(-50%);
+  }
+
+  .zoobi-welcome-kicker {
+    font-size: 0.7rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .zoobi-welcome-hello {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+
+  .zoobi-welcome-name {
+    font-size: clamp(4rem, 15vw, 5.6rem);
+  }
+
+  .zoobi-welcome-subtitle {
+    font-size: 1.35rem;
+  }
+
+  .zoobi-welcome-description {
+    font-size: 1.05rem;
+    margin: 0.55rem auto 0.8rem;
+  }
+
+  .zoobi-welcome-links {
+    gap: 0.45rem;
+    margin: 0.75rem auto;
+  }
+
+  .zoobi-welcome-links a {
+    min-height: 36px;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.86rem;
+  }
+
+  .zoobi-welcome-explore {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .zoobi-welcome-copy,
+  .zoobi-welcome-explore {
+    animation: none;
+  }
+
+  .zoobi-welcome-links a {
+    transition: none;
+  }
+}
