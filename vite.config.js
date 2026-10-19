@@ -32,8 +32,8 @@ export default defineConfig(({ command }) => ({
       server: { entry: "server.js" },
       router: {
         routesDirectory: "./routes",
-        disableTypes: true,
-        generatedRouteTree: "./routeTree.gen.js",
+
+        generatedRouteTree: "./routeTree.gen.ts",
       },
     }),
     command === "build"
