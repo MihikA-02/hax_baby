@@ -6,6 +6,7 @@ import night from "@/assets/night.jpg";
 import meadow from "@/assets/meadow.jpg";
 import zoobi from "@/assets/zoobi.png";
 import heroVideo from "@/assets/hero_page.mp4";
+import { Projects } from "@/features/projects/ProjectsSection";
 import Zoobi from "@/Zoobi";
 import SparkleCursor from "@/SparkleCursor";
 import Storybook from "@/components/storybook/Storybook";
@@ -56,19 +57,7 @@ const origin = [
     f: "",
   },
 ];
-const projects = [
-  {
-    t: "Living Coloring Book",
-    d: "Turn outlines into vibrant stories.",
-    img: heroBook,
-  },
-  {
-    t: "Zoobi's Color Laboratory",
-    d: "Mix, discover and create new colors.",
-    img: meadow,
-  },
-  { t: "The Universe Canvas", d: "Sky, ocean, forest or space.", img: night },
-];
+
 const traits = [
   "Curious",
   "Playful",
@@ -190,23 +179,6 @@ function Index() {
               className="zoobi-page zoobi-guestbook-page"
             >
               <Guestbook />
-
-              {/* Keep your existing footer here */}
-              <footer className="border-t border-ink/10 py-8 text-center">
-                <div className="font-display text-3xl font-extrabold rainbow-text">
-                  Zoobi
-                </div>
-
-                <nav className="mt-2 flex justify-center gap-6 text-sm">
-                  {["Personality", "Story", "Projects", "Gallery", "Guestbook"].map(
-                    (n) => (
-                      <a key={n} href={`#${n}`}>
-                        {n}
-                      </a>
-                    )
-                  )}
-                </nav>
-              </footer>
             </section>
 
 
@@ -378,14 +350,13 @@ function Origin() {
         s="From a drop of magic, a universe of colors was born..."
       />
 
-      <div className="mx-auto grid max-w-5xl grid-cols-1 items-center gap-8 md:grid-cols-2">
-        {/* Left: Storybook */}
-        <div className="flex justify-center">
-          <Storybook />
-        </div>
 
-
+      <div className="origin-book-stage">
+        <Storybook />
       </div>
+
+
+
     </section>
   );
 }
@@ -421,47 +392,7 @@ function Meet() {
     </section>
   );
 }
-function Projects() {
-  return (
-    <section id="Projects">
-      <h2 className="text-4xl font-bold">Zoobi's Projects</h2>
-      <p className="mb-6">Little worlds, big imagination.</p>
-      <div className="grid gap-6 md:grid-cols-3">
-        {projects.map((p, i) => (
-          <article
-            key={p.t}
-            className="paper-card group relative overflow-hidden"
-          >
-            <div className="relative h-44 overflow-hidden">
-              <img
-                src={p.img}
-                alt={p.t}
-                loading="lazy"
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-              />
-              <img
-                src={zoobi}
-                alt=""
-                className="absolute bottom-0 right-4 w-28"
-              />
-            </div>
-            <div className="flex items-center justify-between p-4">
-              <div>
-                <h3 className="font-bold">
-                  0{i + 1}. {p.t}
-                </h3>
-                <p className="text-sm opacity-80">{p.d}</p>
-              </div>
-              <span className="btn-berry grid h-9 w-9 place-items-center">
-                →
-              </span>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
+
 function Studio() {
   const ref = useRef(null);
   const [color, setColor] = useState(palette[0]);

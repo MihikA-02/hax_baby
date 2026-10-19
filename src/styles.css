@@ -345,7 +345,7 @@
 /* Art Studio + Gallery share one full-screen page */
 .zoobi-canvas-world-page {
   justify-content: flex-start;
-  gap: clamp(1.5rem, 18vh, 7.5rem);
+  gap: clamp(1.5rem, 13vh, 6.5rem);
   padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
   padding-bottom: 1rem;
 }
@@ -366,4 +366,58 @@
 .zoobi-guestbook-page {
   justify-content: center;
   gap: 1rem;
+}
+
+/* Zoobi's Origin — bigger, bubbly heading */
+.zoobi-origin-page #Story h2 {
+  font-family: "Baloo 2", "Comic Sans MS", cursive;
+  font-size: clamp(2.6rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+/* Centre Zoobi's Origin storybook */
+.zoobi-origin-page>#Story {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.origin-book-stage {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: origin-book-float 4s ease-in-out infinite;
+}
+
+.origin-book-stage .sb {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Gentle magical floating motion */
+@keyframes origin-book-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .origin-book-stage {
+    animation: none;
+  }
 }

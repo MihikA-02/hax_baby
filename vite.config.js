@@ -31,8 +31,9 @@ export default defineConfig(({ command }) => ({
     tanstackStart({
       server: { entry: "server.js" },
       router: {
+        routesDirectory: "./src/routes",
         disableTypes: true,
-        generatedRouteTree: "src/routeTree.gen.js",
+        generatedRouteTree: "./src/routeTree.gen.js",
       },
     }),
     command === "build"
